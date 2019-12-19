@@ -1,6 +1,6 @@
 # GitHub Action to Add Release Metadata to The IOTA Tangle
 
-This GitHub Action will take the contents of your GitHub release and create an associated Transactions on the IOTA Tangle. This way the data associated with the release becomes immutable.
+This GitHub Action will take the contents of your GitHub release and create an associated transaction on the IOTA Tangle. This way the data associated with the release becomes immutable.
 
 ## Usage
 
