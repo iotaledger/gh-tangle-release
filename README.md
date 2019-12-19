@@ -1,10 +1,59 @@
 # GitHub Action to Add Release Metadata to The IOTA Tangle
 
-This GitHub Action will take the contents of your GitHub release and create an associated transaction on the IOTA Tangle. This way the data associated with the release becomes immutable.
+This GitHub Action will take the contents of your GitHub tagged release and create an associated transaction on the IOTA Tangle. This way the data associated with the release becomes immutable.
+
+The action will perform the following steps:
+
+* Load the release tagged by the input `tag_name`
+* Create a signature for the content of `tarball_url`
+* Create a signature for the content of `zipball_url`
+* Create a signature for each of the attached assets
+* Attach a payload to the IOTA Tangle with information about the release and the hashes
+
+### Inputs
+
+- `tag_name`: The name of the tag for this release
+
+### Outputs
+
+- `tx_hash`: The hash of the transaction on the Tangle
+- `tx_explore_url`: A url which can be used to explore the transaction on the Tangle
+
+
+## Example Payload
+
+```json
+{
+   "owner": "an-owner",
+   "repo": "test-repo",
+   "tag_name": "v0.1.0",
+   "name": "First full release",
+   "body": "This is the body of the description.",
+   "tarball_url": "https://api.github.com/repos/an-owner/test-repo/tarball/v0.1.0",
+   "tarball_sig": "Me3ouGni0h50TOHQklopu3sJdLFh/ZVlPJom3aDRFVQ=",
+   "zipball_url": "https://api.github.com/repos/an-owner/test-repo/zipball/v0.1.0",
+   "zipball_sig": "jyQ8U1T4oMSEbT3e9NTuFyoMskwAvti3nmiYKtuh8LU=",
+   "assets": [
+      {
+         "name": "attach-1.zip",
+         "size": 150752,
+         "url": "https://github.com/an-owner/test-repo/releases/download/v0.1.0/attach-1.zip",
+         "sig": "YQylonV2i+5KtwVN0FxTU7ssWflX+6fC29COSbFOmfQ="
+      },
+      {
+         "name": "attach-2.zip",
+         "size": 153054,
+         "url": "https://github.com/an-owner/test-repo/releases/download/v0.1.0/attach-2.zip",
+         "sig": "a+Rgpf5gs0lpCJ8wt+eymkTdo99RbcP0o1PgLCIT2NE="
+      }
+   ]
+}
+```
 
 ## Usage
 
-Create a GitHub workflow in you repo e.g. `/.github/workflows/tangle-release.yml`
+Create a GitHub workflow in you repo e.g. `/.github/workflows/tangle-release.yml`.
+ Most of the environment variables are optional, except for the `IOTA_SEED` which must be 81 trytes in length.
 
 ```yaml
 on:
@@ -21,7 +70,7 @@ jobs:
     steps:
       - name: Tangle Release
         id: tangle_release
-        uses: obany/gh-tangle-release@v0.1.0
+        uses: obany/gh-tangle-release@v0.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IOTA_SEED: ${{ secrets.IOTA_SEED }}
@@ -35,3 +84,5 @@ jobs:
           tag_name: ${{ github.ref }}
 
 ```
+
+## Returns

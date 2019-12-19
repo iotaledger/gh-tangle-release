@@ -32062,6 +32062,8 @@ async function run() {
     const zipBallHash = await downloadAndHash(release.data.zipball_url);
 
     const payload = {
+      owner,
+      repo,
       tag_name: release.data.tag_name,
       name: release.data.name,
       body: release.data.body,
