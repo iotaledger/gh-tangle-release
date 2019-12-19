@@ -4,7 +4,7 @@ This GitHub Action will take the contents of your GitHub release and create an a
 
 ## Usage
 
-Create a GitHub workflow in you repo e.g. `/.github/workflows/tangle-release.tml`
+Create a GitHub workflow in you repo e.g. `/.github/workflows/tangle-release.yml`
 
 ```yaml
 on:
