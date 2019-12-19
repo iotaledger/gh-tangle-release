@@ -10363,7 +10363,7 @@ async function run() {
 
     const tagName = core.getInput('tag_name', { required: true });
 
-    const release = github.repos.getReleaseByTag({
+    const release = await github.repos.getReleaseByTag({
       owner,
       repo,
       tag: tagName.replace('refs/tags/', '')
