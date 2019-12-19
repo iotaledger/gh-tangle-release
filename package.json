@@ -23,6 +23,7 @@
     "@actions/core": "^1.2.0",
     "@actions/exec": "^1.0.2",
     "@actions/github": "^2.0.0",
+    "@iota/converter": "^1.0.0-beta.23",
     "@iota/core": "^1.0.0-beta.24",
     "axios": "^0.19.0"
   },
