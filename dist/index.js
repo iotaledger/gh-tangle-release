@@ -10353,11 +10353,19 @@ module.exports = set;
 
 /* eslint-disable no-console */
 const core = __webpack_require__(470);
-const { context } = __webpack_require__(469);
+const { GitHub, context } = __webpack_require__(469);
 
 async function run() {
   try {
-    console.log(JSON.stringify(context));
+    const github = new GitHub(process.env.GITHUB_TOKEN);
+
+    const { owner, repo } = context.repo;
+
+    const tag = core.getInput('tag_name', { required: true });
+
+    const release = github.repos.getReleaseByTag({ owner, repo, tag });
+
+    console.log(release);
   } catch (error) {
     core.setFailed(error.message);
   }
