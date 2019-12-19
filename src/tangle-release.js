@@ -4,11 +4,7 @@ const { context } = require('@actions/github');
 
 async function run() {
   try {
-    // Get owner and repo from context of payload that triggered the action
-    const { owner, repo } = context.repo;
-
-    console.log(JSON.stringify(owner));
-    console.log(JSON.stringify(repo));
+    console.log(JSON.stringify(context));
   } catch (error) {
     core.setFailed(error.message);
   }
