@@ -19,6 +19,6 @@ async function downloadAndHash(url) {
   }
 }
 
-module.export = {
+module.exports = {
   downloadAndHash
 };

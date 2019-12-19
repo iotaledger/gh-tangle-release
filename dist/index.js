@@ -36,8 +36,6 @@ module.exports =
 /******/ 		// Load entry module and return exports
 /******/ 		return __webpack_require__(31);
 /******/ 	};
-/******/ 	// initialize runtime
-/******/ 	runtime(__webpack_require__);
 /******/
 /******/ 	// run startup
 /******/ 	return startup();
@@ -9454,7 +9452,6 @@ module.exports = require("events");
 /***/ 615:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-/* module decorator */ module = __webpack_require__.nmd(module);
 const axios = __webpack_require__(53);
 const crypto = __webpack_require__(417);
 
@@ -9476,7 +9473,7 @@ async function downloadAndHash(url) {
   }
 }
 
-module.export = {
+module.exports = {
   downloadAndHash
 };
 
@@ -14430,26 +14427,4 @@ function onceStrict (fn) {
 
 /***/ })
 
-/******/ },
-/******/ function(__webpack_require__) { // webpackRuntimeModules
-/******/ 	"use strict";
-/******/ 
-/******/ 	/* webpack/runtime/node module decorator */
-/******/ 	!function() {
-/******/ 		__webpack_require__.nmd = function(module) {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'loaded', {
-/******/ 				enumerable: true,
-/******/ 				get: function() { return module.l; }
-/******/ 			});
-/******/ 			Object.defineProperty(module, 'id', {
-/******/ 				enumerable: true,
-/******/ 				get: function() { return module.i; }
-/******/ 			});
-/******/ 			return module;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ }
-);
+/******/ });
