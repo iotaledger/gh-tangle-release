@@ -6241,6 +6241,27 @@ module.exports = readShebang;
 
 /***/ }),
 
+/***/ 392:
+/***/ (function(module) {
+
+/* eslint-disable no-console */
+async function attachToTangle(provider, depth, mwm, seed, addressIndex, payload) {
+  console.log('provider', provider);
+  console.log('depth', depth);
+  console.log('mwm', mwm);
+  console.log('seed', seed);
+  console.log('addressIndex', addressIndex);
+  console.log('payload', payload);
+  return 'A'.repeat(81);
+}
+
+module.exports = {
+  attachToTangle
+};
+
+
+/***/ }),
+
 /***/ 402:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -13521,10 +13542,29 @@ module.exports = set;
 const core = __webpack_require__(470);
 const { GitHub, context } = __webpack_require__(469);
 const { downloadAndHash } = __webpack_require__(615);
+const { attachToTangle } = __webpack_require__(392);
 
 async function run() {
   try {
     const github = new GitHub(process.env.GITHUB_TOKEN);
+
+    const seed = process.env.IOTA_SEED;
+    let provider = process.env.IOTA_PROVIDER;
+    let addressIndex = process.env.IOTA_ADDRESS_INDEX;
+    const depth = process.env.IOTA_DEPTH || 3;
+    const mwm = process.env.IOTA_MWM || 14;
+
+    if (!seed) {
+      throw new Error('You must provider the IOTA_SEED env variable');
+    }
+
+    if (!provider || provider.length === 0) {
+      provider = 'https://nodes.iota.cafe:443';
+    }
+
+    if (addressIndex === undefined || addressIndex === null) {
+      addressIndex = 0;
+    }
 
     const { owner, repo } = context.repo;
 
@@ -13537,32 +13577,38 @@ async function run() {
     });
 
     // eslint-disable-next-line camelcase
-    const { url, assets_url, upload_url, html_url, name, body, tarball_url, zipball_url, assets } = release.data;
+    const { tag_name, name, body, tarball_url, zipball_url, assets } = release.data;
 
     const tarBallHash = await downloadAndHash(tarball_url);
     const zipBallHash = await downloadAndHash(zipball_url);
 
-    console.log('url', url);
-    console.log('assets_url', assets_url);
-    console.log('upload_url', upload_url);
-    console.log('html_url', html_url);
-    console.log('name', name);
-    console.log('body', body);
-    console.log('tarball_url', tarball_url);
-    console.log('zipball_url', zipball_url);
-    console.log('tarBallHash', tarBallHash);
-    console.log('zipBallHash', zipBallHash);
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < assets.length; i++) {
-      console.log(`assets ${i}: name`, assets[i].name);
-      console.log(`assets ${i}: size`, assets[i].size);
-      console.log(`assets ${i}: content type`, assets[i].content_type);
-      console.log(`assets ${i}: url`, assets[i].browser_download_url);
+    const payload = {
+      tag_name,
+      name,
+      body,
+      tarball_url,
+      tarball_sig: tarBallHash,
+      zipball_url,
+      zipball_sig: zipBallHash
+    };
 
-      // eslint-disable-next-line no-await-in-loop
-      const assetHash = await downloadAndHash(assets[i].browser_download_url);
-      console.log(`assets ${i}: hash`, assetHash);
+    if (assets && assets.length > 0) {
+      payload.assets = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < assets.length; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        const assetHash = await downloadAndHash(assets[i].browser_download_url);
+        payload.assets.push({
+          name: assets[i].name,
+          size: assets[i].size,
+          url: assets[i].browser_download_url,
+          sig: assetHash
+        });
+      }
     }
+
+    const txHash = await attachToTangle(provider, depth, mwm, seed, addressIndex, payload);
+    core.setOutput('tx_hash', txHash);
   } catch (error) {
     core.setFailed(error.message);
   }
