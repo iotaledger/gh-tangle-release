@@ -8,9 +8,13 @@ async function run() {
 
     const { owner, repo } = context.repo;
 
-    const tag = core.getInput('tag_name', { required: true });
+    const tagName = core.getInput('tag_name', { required: true });
 
-    const release = github.repos.getReleaseByTag({ owner, repo, tag });
+    const release = github.repos.getReleaseByTag({
+      owner,
+      repo,
+      tag: tagName.replace('refs/tags/', '')
+    });
 
     console.log(release);
   } catch (error) {
