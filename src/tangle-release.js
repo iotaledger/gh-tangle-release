@@ -35,6 +35,7 @@ async function run() {
     const { owner, repo } = context.repo;
 
     const tagName = core.getInput('tag_name', { required: true });
+    const comment = core.getInput('comment', { required: false });
 
     const release = await github.repos.getReleaseByTag({
       owner,
@@ -50,6 +51,7 @@ async function run() {
       repo,
       tag_name: release.data.tag_name,
       name: release.data.name,
+      comment,
       body: release.data.body,
       tarball_url: release.data.tarball_url,
       tarball_sig: tarBallHash,

@@ -13,6 +13,7 @@ The action will perform the following steps:
 ### Inputs
 
 - `tag_name`: The name of the tag for this release
+- `comment`: An optional comment to include in the Tangle payload
 
 ### Outputs
 
@@ -28,6 +29,7 @@ The action will perform the following steps:
    "repo": "test-repo",
    "tag_name": "v0.1.0",
    "name": "First full release",
+   "comment": "My Awesome Release",
    "body": "This is the body of the description.",
    "tarball_url": "https://api.github.com/repos/an-owner/test-repo/tarball/v0.1.0",
    "tarball_sig": "Me3ouGni0h50TOHQklopu3sJdLFh/ZVlPJom3aDRFVQ=",
@@ -53,7 +55,7 @@ The action will perform the following steps:
 ## Usage
 
 Create a GitHub workflow in you repo e.g. `/.github/workflows/tangle-release.yml`.
- Most of the environment variables are optional, except for the `IOTA_SEED` which must be 81 trytes in length.
+ Most of the environment variables are optional, except for the `IOTA_SEED` which must be 81 trytes in length. For more details on creating a seed see [IOTA Docs - Getting Started - Creating A Seed](https://docs.iota.org/docs/getting-started/0.1/tutorials/create-a-seed)
 
 ```yaml
 on:
@@ -82,7 +84,7 @@ jobs:
           IOTA_EXPLORE_URL: ${{ secrets.IOTA_EXPLORE_URL }} # Optional, defaults to https://utils.iota.org/transaction/:hash
         with:
           tag_name: ${{ github.ref }}
+          comment: My Awesome Release
 
 ```
 
-## Returns
