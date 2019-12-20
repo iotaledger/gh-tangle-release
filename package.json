@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/obany/gh-tangle-release"
+    "url": "git+https://github.com/iotaledger/gh-tangle-release"
   },
   "keywords": [
     "actions",
