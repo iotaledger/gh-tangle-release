@@ -1,31 +1,18 @@
-name: 'Create a Release'
-description: 'Create a release for a tag in your repository'
-author: 'GitHub'
+name: 'Create an Immutable Release'
+description: 'Create an immutable release for a tag on the IOTA Tangle'
+author: 'IOTA Foundation'
 inputs:
   tag_name:
     description: 'The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag'
     required: true
-  release_name:
-    description: 'The name of the release. For example, `Release v1.0.1`'
-    required: true
-  body:
-    description: 'Text describing the contents of the tag.'
+  comment:
+    description: 'An optional comment to include in the Tangle payload'
     required: false
-  draft:
-    description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'
-    required: false
-    default: false
-  prerelease:
-    description: '`true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`'
-    required: false
-    default: false
 outputs:
-  id:
-    description: 'The ID of the created Release'
-  html_url:
-    description: 'The URL users can navigate to in order to view the release'
-  upload_url:
-    description: 'The URL for uploading assets to the release'
+  tx_hash:
+    description: 'The hash of the transaction on the Tangle'
+  tx_explore_url:
+    description: 'A url which can be used to explore the transaction on the Tangle'
 runs:
   using: 'node12'
   main: 'dist/index.js'
