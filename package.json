@@ -1,6 +1,6 @@
 {
   "name": "gh-tangle-release",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Create a release and adds metadata to the IOTA Tangle",
   "main": "dist/index.js",
   "scripts": {

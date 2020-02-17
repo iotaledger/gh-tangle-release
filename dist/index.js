@@ -15320,9 +15320,9 @@ function encodeNonASCII(value) {
 async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, payload) {
   const json = JSON.stringify(payload);
   const ascii = encodeNonASCII(json);
-  const trytes = asciiToTrytes(ascii);
-  console.log(`Message Trytes Length: ${trytes.length}`);
-  console.log(`Number of Transactions: ${Math.ceil(trytes.length / 2187)}`);
+  const messageTrytes = asciiToTrytes(ascii);
+  console.log(`Message Trytes Length: ${messageTrytes.length}`);
+  console.log(`Number of Transactions: ${Math.ceil(messageTrytes.length / 2187)}`);
 
   try {
     const iota = composeAPI({
@@ -15336,7 +15336,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
       {
         address,
         value: 0,
-        message: trytes,
+        message: messageTrytes,
         tag
       }
     ]);
