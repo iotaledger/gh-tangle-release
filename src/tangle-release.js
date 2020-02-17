@@ -11,7 +11,7 @@ async function run() {
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
-    const provider = process.env.IOTA_PROVIDER || 'https://nodes.iota.cafe:443';
+    const node = process.env.IOTA_NODE || 'https://nodes.iota.cafe:443';
     let addressIndex = parseInt(process.env.IOTA_ADDRESS_INDEX, 10);
     let depth = parseInt(process.env.IOTA_DEPTH, 10);
     let mwm = parseInt(process.env.IOTA_MWM, 10);
@@ -90,7 +90,7 @@ async function run() {
     }
 
     console.log("Attaching to tangle");
-    const txHash = await attachToTangle(provider, depth, mwm, seed, addressIndex, tag, payload);
+    const txHash = await attachToTangle(node, depth, mwm, seed, addressIndex, tag, payload);
     const exploreUrl = tangleExplorer.replace(':hash', txHash);
     console.log(`You can view the transaction on the tangle at ${exploreUrl}`);
     core.setOutput('tx_hash', txHash);
