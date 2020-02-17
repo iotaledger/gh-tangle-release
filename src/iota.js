@@ -13,26 +13,30 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
   const message = asciiToTrytes(ascii);
   console.log(`Message Trytes Length: ${message.length}`);
 
-  const iota = composeAPI({
-    provider
-  });
+  try {
+    const iota = composeAPI({
+      provider
+    });
 
-  const address = generateAddress(seed, addressIndex);
+    const address = generateAddress(seed, addressIndex);
 
-  console.log("Preparing transfer");
-  const trytes = await iota.prepareTransfers('9'.repeat(81), [
-    {
-      address,
-      value: 0,
-      message,
-      tag
-    }
-  ]);
+    console.log("Preparing transfer");
+    const trytes = await iota.prepareTransfers('9'.repeat(81), [
+      {
+        address,
+        value: 0,
+        message,
+        tag
+      }
+    ]);
 
-  console.log("Sending trytes");
-  const bundles = await iota.sendTrytes(trytes, depth, mwm);
-
-  return bundles[0].hash;
+    console.log("Sending trytes");
+    const bundles = await iota.sendTrytes(trytes, depth, mwm);
+    return bundles[0].hash;
+  } catch (err) {
+    console.log(`Sending trytes failed`);
+    console.log(err.message);
+  }
 }
 
 module.exports = {
