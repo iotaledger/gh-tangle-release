@@ -15344,8 +15344,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
     const bundles = await iota.sendTrytes(trytes, depth, mwm);
     return bundles[0].hash;
   } catch (err) {
-    console.log(`Sending trytes failed`);
-    console.log(err.message);
+    throw new Error(`Sending trytes failed.${err ? err : `\n${err}`}`);
   }
 }
 
