@@ -71,7 +71,6 @@ async function run() {
       zipball_url: release.data.zipball_url,
       zipball_sig: zipBallHash
     };
-    console.log(payload);
 
     console.log("Processing assets");
     if (release.data.assets && release.data.assets.length > 0) {
