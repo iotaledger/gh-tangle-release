@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Tangle Release
         id: tangle_release
-        uses: iotaledger/gh-tangle-release@v0.5.2
+        uses: iotaledger/gh-tangle-release@v0.5.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IOTA_SEED: ${{ secrets.IOTA_SEED }}

@@ -1398,6 +1398,7 @@ module.exports = function createError(message, config, code, request, response) 
 const run = __webpack_require__(885);
 
 if (require.main === require.cache[eval('__filename')]) {
+  console.log(`Tangle Release Startup`);
   run();
 }
 
@@ -15320,6 +15321,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
   const json = JSON.stringify(payload);
   const ascii = encodeNonASCII(json);
   const message = asciiToTrytes(ascii);
+  console.log(`Message Trytes Length: ${message.length}`);
 
   const iota = composeAPI({
     provider
@@ -15327,6 +15329,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
 
   const address = generateAddress(seed, addressIndex);
 
+  console.log("Preparing transfer");
   const trytes = await iota.prepareTransfers('9'.repeat(81), [
     {
       address,
@@ -15336,6 +15339,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
     }
   ]);
 
+  console.log("Sending trytes");
   const bundles = await iota.sendTrytes(trytes, depth, mwm);
 
   return bundles[0].hash;
@@ -31860,6 +31864,8 @@ async function run() {
     let depth = parseInt(process.env.IOTA_DEPTH, 10);
     let mwm = parseInt(process.env.IOTA_MWM, 10);
 
+    console.log(`Parameters Initialized`);
+
     if (!seed) {
       throw new Error('You must provide the IOTA_SEED env variable');
     }
@@ -31879,7 +31885,10 @@ async function run() {
     const { owner, repo } = context.repo;
 
     const tagName = core.getInput('tag_name', { required: true });
+    console.log(`Tag Name Retrieved`);
+
     const comment = core.getInput('comment', { required: false });
+    console.log(`Comment Retrieved`);
 
     const release = await github.repos.getReleaseByTag({
       owner,
@@ -31887,9 +31896,17 @@ async function run() {
       tag: tagName.replace('refs/tags/', '')
     });
 
+    if (!release) {
+      throw new Error("Unable to retrieve release");
+    }
+
+    console.log(`Downloading tarball`);
     const tarBallHash = await downloadAndHash(release.data.tarball_url);
+
+    console.log(`Downloading zipball`);
     const zipBallHash = await downloadAndHash(release.data.zipball_url);
 
+    console.log(`Constructing payload`);
     const payload = {
       owner,
       repo,
@@ -31902,7 +31919,9 @@ async function run() {
       zipball_url: release.data.zipball_url,
       zipball_sig: zipBallHash
     };
+    console.log(payload);
 
+    console.log("Processing assets");
     if (release.data.assets && release.data.assets.length > 0) {
       payload.assets = [];
       // eslint-disable-next-line no-plusplus
@@ -31918,6 +31937,7 @@ async function run() {
       }
     }
 
+    console.log("Attaching to tangle");
     const txHash = await attachToTangle(provider, depth, mwm, seed, addressIndex, tag, payload);
     const exploreUrl = tangleExplorer.replace(':hash', txHash);
     console.log(`You can view the transaction on the tangle at ${exploreUrl}`);
@@ -31925,6 +31945,8 @@ async function run() {
     core.setOutput('tx_explore_url', exploreUrl);
   } catch (error) {
     core.setFailed(error.message);
+    console.log(`Failed`);
+    console.log(error.message);
   }
 }
 
