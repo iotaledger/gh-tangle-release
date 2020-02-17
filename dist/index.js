@@ -31863,7 +31863,7 @@ async function run() {
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
-    const node = process.env.IOTA_NODE || 'https://nodes.iota.cafe:443';
+    const node = process.env.IOTA_NODE || 'https://nodes.iota.org:443';
     let addressIndex = parseInt(process.env.IOTA_ADDRESS_INDEX, 10);
     let depth = parseInt(process.env.IOTA_DEPTH, 10);
     let mwm = parseInt(process.env.IOTA_MWM, 10);

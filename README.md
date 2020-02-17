@@ -76,7 +76,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IOTA_SEED: ${{ secrets.IOTA_SEED }}
-          IOTA_NODE: ${{ secrets.IOTA_NODE }} # Optional, defaults to https://nodes.iota.cafe:443
+          IOTA_NODE: ${{ secrets.IOTA_NODE }} # Optional, defaults to https://nodes.iota.org:443
           IOTA_ADDRESS_INDEX: ${{ secrets.IOTA_ADDRESS_INDEX }} # Optional, defaults to 0
           IOTA_DEPTH: ${{ secrets.IOTA_DEPTH }} # Optional, defaults to 3
           IOTA_MWM: ${{ secrets.IOTA_MWM }} # Optional, defaults to 14
