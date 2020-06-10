@@ -49,7 +49,7 @@ async function run() {
     });
 
     if (!release) {
-      throw new Error("Unable to retrieve release");
+      throw new Error('Unable to retrieve release');
     }
 
     console.log(`Downloading tarball`);
@@ -72,7 +72,7 @@ async function run() {
       zipball_sig: zipBallHash
     };
 
-    console.log("Processing assets");
+    console.log('Processing assets');
     if (release.data.assets && release.data.assets.length > 0) {
       payload.assets = [];
       // eslint-disable-next-line no-plusplus
@@ -88,7 +88,7 @@ async function run() {
       }
     }
 
-    console.log("Attaching to tangle");
+    console.log('Attaching to tangle');
     const txHash = await attachToTangle(node, depth, mwm, seed, addressIndex, tag, payload);
     const exploreUrl = tangleExplorer.replace(':hash', txHash);
     console.log(`You can view the transaction on the tangle at ${exploreUrl}`);

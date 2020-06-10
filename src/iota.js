@@ -3,7 +3,7 @@ const { asciiToTrytes } = require('@iota/converter');
 
 function encodeNonASCII(value) {
   return value
-    ? value.replace(/[\u007F-\uFFFF]/g, chr => `\\u${`0000${chr.charCodeAt(0).toString(16)}`.substr(-4)}`)
+    ? value.replace(/[\u007F-\uFFFF]/g, (chr) => `\\u${`0000${chr.charCodeAt(0).toString(16)}`.substr(-4)}`)
     : undefined;
 }
 
@@ -21,7 +21,7 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
 
     const address = generateAddress(seed, addressIndex);
 
-    console.log("Preparing transfer");
+    console.log('Preparing transfer');
     const trytes = await iota.prepareTransfers('9'.repeat(81), [
       {
         address,
@@ -31,11 +31,11 @@ async function attachToTangle(provider, depth, mwm, seed, addressIndex, tag, pay
       }
     ]);
 
-    console.log("Sending trytes");
+    console.log('Sending trytes');
     const bundles = await iota.sendTrytes(trytes, depth, mwm);
     return bundles[0].hash;
   } catch (err) {
-    throw new Error(`Sending trytes failed.${err ? err : `\n${err}`}`);
+    throw new Error(`Sending trytes failed.${err || `\n${err}`}`);
   }
 }
 
