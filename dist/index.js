@@ -31511,14 +31511,12 @@ if (isES5) {
 
 /* eslint-disable no-console */
 const core = __webpack_require__(470);
-const { GitHub, context } = __webpack_require__(469);
+const github = __webpack_require__(469);
 const { downloadAndHash } = __webpack_require__(615);
 const { attachToTangle } = __webpack_require__(392);
 
 async function run() {
   try {
-    const github = new GitHub(process.env.GITHUB_TOKEN);
-
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
@@ -31545,7 +31543,7 @@ async function run() {
       depth = 3;
     }
 
-    const { owner, repo } = context.repo;
+    const { owner, repo } = github.context.repo;
 
     const tagName = core.getInput('tag_name', { required: true });
     console.log(`Tag Name Retrieved`);

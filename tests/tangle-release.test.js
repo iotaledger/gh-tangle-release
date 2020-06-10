@@ -1,40 +1,52 @@
-jest.mock('@actions/core');
-jest.mock('@actions/github');
-
 const core = require('@actions/core');
-const { GitHub, context } = require('@actions/github');
-const run = require('../src/tangle-release.js');
+const run = require('../src/tangle-release');
 
-/* eslint-disable no-undef */
+let inputs = {};
+
 describe('Tangle Release', () => {
-  let tangleRelease;
-
+  let setFailedMock;
   beforeEach(() => {
-    tangleRelease = jest.fn().mockReturnValueOnce({
-      data: {
-        id: 'releaseId',
-        html_url: 'htmlUrl',
-        upload_url: 'uploadUrl'
+    jest.spyOn(console, 'log').mockImplementation();
+    setFailedMock = jest.spyOn(core, 'setFailed');
+    inputs = {};
+    jest.spyOn(core, 'getInput').mockImplementation((name, options) => {
+      if (options && options.required && !inputs[name]) {
+        throw new Error(`Input required and not supplied: ${name}`);
       }
+
+      return inputs[name];
     });
-
-    context.repo = {
-      owner: 'owner',
-      repo: 'repo'
-    };
-
-    const github = {
-      repos: {
-        tangleRelease
-      }
-    };
-
-    GitHub.mockImplementation(() => github);
   });
 
-  test('Test 1', async () => {
-    core.getInput = jest.fn();
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
+  test('No IOTA_SEED', async () => {
     await run();
+    expect(setFailedMock).toHaveBeenCalledWith('You must provide the IOTA_SEED env variable');
+  });
+
+  test('No owner/repo', async () => {
+    process.env.IOTA_SEED = 'A'.repeat(81);
+    await run();
+    expect(setFailedMock).toHaveBeenCalledWith(
+      "context.repo requires a GITHUB_REPOSITORY environment variable like 'owner/repo'"
+    );
+  });
+
+  test('No tag_name', async () => {
+    process.env.IOTA_SEED = 'A'.repeat(81);
+    process.env.GITHUB_REPOSITORY = 'repo1/app1';
+    await run();
+    expect(setFailedMock).toHaveBeenCalledWith('Input required and not supplied: tag_name');
+  });
+
+  test('missing repos', async () => {
+    process.env.IOTA_SEED = 'A'.repeat(81);
+    process.env.GITHUB_REPOSITORY = 'repo1/app1';
+    inputs.tag_name = 'my_tag';
+    await run();
+    expect(setFailedMock).toHaveBeenCalledWith("Cannot read property 'getReleaseByTag' of undefined");
   });
 });

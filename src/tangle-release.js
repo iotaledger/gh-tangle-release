@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
 const core = require('@actions/core');
-const { GitHub, context } = require('@actions/github');
+const github = require('@actions/github');
 const { downloadAndHash } = require('./crypto');
 const { attachToTangle } = require('./iota');
 
 async function run() {
   try {
-    const github = new GitHub(process.env.GITHUB_TOKEN);
-
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
@@ -34,7 +32,7 @@ async function run() {
       depth = 3;
     }
 
-    const { owner, repo } = context.repo;
+    const { owner, repo } = github.context.repo;
 
     const tagName = core.getInput('tag_name', { required: true });
     console.log(`Tag Name Retrieved`);
