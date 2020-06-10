@@ -27,14 +27,6 @@ describe('Tangle Release', () => {
     expect(setFailedMock).toHaveBeenCalledWith('You must provide the IOTA_SEED env variable');
   });
 
-  test('No owner/repo', async () => {
-    process.env.IOTA_SEED = 'A'.repeat(81);
-    await run();
-    expect(setFailedMock).toHaveBeenCalledWith(
-      "context.repo requires a GITHUB_REPOSITORY environment variable like 'owner/repo'"
-    );
-  });
-
   test('No tag_name', async () => {
     process.env.IOTA_SEED = 'A'.repeat(81);
     process.env.GITHUB_REPOSITORY = 'repo1/app1';
