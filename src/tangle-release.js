@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { downloadAndHash } = require('./crypto');
@@ -6,6 +5,7 @@ const { attachToTangle } = require('./iota');
 
 async function run() {
   try {
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
@@ -40,7 +40,7 @@ async function run() {
     const comment = core.getInput('comment', { required: false });
     console.log(`Comment Retrieved`);
 
-    const release = await github.repos.getReleaseByTag({
+    const release = await octokit.repos.getReleaseByTag({
       owner,
       repo,
       tag: tagName.replace('refs/tags/', '')

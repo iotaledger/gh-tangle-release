@@ -31509,7 +31509,6 @@ if (isES5) {
 /* 885 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-/* eslint-disable no-console */
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 const { downloadAndHash } = __webpack_require__(615);
@@ -31517,6 +31516,7 @@ const { attachToTangle } = __webpack_require__(392);
 
 async function run() {
   try {
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
     const seed = process.env.IOTA_SEED;
     const tag = process.env.IOTA_TAG || 'GITHUB9RELEASE';
     const tangleExplorer = process.env.IOTA_TANGLE_EXPLORER || 'https://utils.iota.org/transaction/:hash';
@@ -31551,7 +31551,7 @@ async function run() {
     const comment = core.getInput('comment', { required: false });
     console.log(`Comment Retrieved`);
 
-    const release = await github.repos.getReleaseByTag({
+    const release = await octokit.repos.getReleaseByTag({
       owner,
       repo,
       tag: tagName.replace('refs/tags/', '')

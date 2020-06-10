@@ -6,6 +6,7 @@ let inputs = {};
 describe('Tangle Release', () => {
   let setFailedMock;
   beforeEach(() => {
+    process.env.GITHUB_TOKEN = 'TOKEN';
     jest.spyOn(console, 'log').mockImplementation();
     setFailedMock = jest.spyOn(core, 'setFailed');
     inputs = {};
@@ -34,11 +35,11 @@ describe('Tangle Release', () => {
     expect(setFailedMock).toHaveBeenCalledWith('Input required and not supplied: tag_name');
   });
 
-  test('missing repos', async () => {
+  test('unmocked octokit bad credentials', async () => {
     process.env.IOTA_SEED = 'A'.repeat(81);
     process.env.GITHUB_REPOSITORY = 'repo1/app1';
     inputs.tag_name = 'my_tag';
     await run();
-    expect(setFailedMock).toHaveBeenCalledWith("Cannot read property 'getReleaseByTag' of undefined");
+    expect(setFailedMock).toHaveBeenCalledWith('Bad credentials');
   });
 });
