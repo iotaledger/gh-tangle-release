@@ -83,7 +83,7 @@ else {
     }
     catch (err) {
         program.help(str => {
-            // console.log(str);
+            console.log(str);
             console.error(chalk_1.default.red(`Error: ${err.message}`));
             return "";
         });

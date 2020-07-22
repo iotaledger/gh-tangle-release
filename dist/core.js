@@ -53,10 +53,8 @@ function sanitizeInput(config) {
     let addressIndex;
     let depth;
     let mwm;
-    console.log(`addressindex is ${config.addressIndex}`);
-    console.log(`addressindex type is ${typeof config.addressIndex}`);
     if (typeof config.addressIndex === "string") {
-        addressIndex = Number.parseInt(config.addressIndex, 10);
+        addressIndex = config.addressIndex.length > 0 ? Number.parseInt(config.addressIndex, 10) : 0;
     }
     else if (config.addressIndex === undefined || config.addressIndex === null) {
         addressIndex = 0;
@@ -64,10 +62,8 @@ function sanitizeInput(config) {
     else {
         addressIndex = config.addressIndex;
     }
-    console.log(`addressindex is ${addressIndex}`);
-    console.log(`addressindex2 type is ${typeof addressIndex}`);
     if (typeof config.depth === "string") {
-        depth = Number.parseInt(config.depth, 10);
+        depth = config.depth.length > 0 ? Number.parseInt(config.depth, 10) : 3;
     }
     else if (config.depth === undefined || config.depth === null) {
         depth = 3;
@@ -76,7 +72,7 @@ function sanitizeInput(config) {
         depth = config.depth;
     }
     if (typeof config.mwm === "string") {
-        mwm = Number.parseInt(config.mwm, 10);
+        mwm = config.mwm.length > 0 ? Number.parseInt(config.mwm, 10) : 14;
     }
     else if (config.mwm === undefined || config.mwm === null) {
         mwm = 14;

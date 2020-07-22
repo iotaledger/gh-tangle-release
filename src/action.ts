@@ -27,8 +27,6 @@ if (require.main === module) {
         explorerUrl: process.env.IOTA_TANGLE_EXPLORER
     };
 
-    console.log(`process.env.IOTA_ADDRESS_INDEX is ${typeof process.env.IOTA_ADDRESS_INDEX}`);
-
     const config: IConfig = sanitizeInput(envConfig);
 
     tangleRelease(config, message => console.log(message))

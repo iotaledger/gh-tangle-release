@@ -93,7 +93,7 @@ if (process.argv.length === 2) {
             });
     } catch (err) {
         program.help(str => {
-            // console.log(str);
+            console.log(str);
             console.error(chalk.red(`Error: ${err.message}`));
             return "";
         });
