@@ -39,7 +39,7 @@ program
         chalk.yellowBright("Display help"));
 
 if (process.argv.length === 2) {
-    program.help();
+    program.help(str => `${str}${createExample()}`);
 } else {
     try {
         program.parse(process.argv);
@@ -92,10 +92,15 @@ if (process.argv.length === 2) {
                 process.exit(1);
             });
     } catch (err) {
-        program.help(str => {
-            console.log(str);
-            console.error(chalk.red(`Error: ${err.message}`));
-            return "";
-        });
+        program.help(str => `${str}${chalk.red(`Error: ${err.message}`)}`);
     }
+}
+
+/**
+ * Show an example on the console.
+ * @returns The example text.
+ */
+function createExample(): string {
+    // eslint-disable-next-line max-len
+    return chalk.magenta("\nExample: gh-tangle-release --github-token a4d936470cb3d66f5434f787c2500bde9764f --owner my-org --repository my-repo --release-tag v1.0.1 --seed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 }

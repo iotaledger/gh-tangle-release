@@ -32,7 +32,7 @@ program
     .option("--explorer-url <string>", chalk_1.default.yellowBright("Url of the explorer to use for exploration link"), "https://utils.iota.org/transaction/:hash")
     .helpOption("--help", chalk_1.default.yellowBright("Display help"));
 if (process.argv.length === 2) {
-    program.help();
+    program.help(str => `${str}${createExample()}`);
 }
 else {
     try {
@@ -82,10 +82,14 @@ else {
         });
     }
     catch (err) {
-        program.help(str => {
-            console.log(str);
-            console.error(chalk_1.default.red(`Error: ${err.message}`));
-            return "";
-        });
+        program.help(str => `${str}${chalk_1.default.red(`Error: ${err.message}`)}`);
     }
+}
+/**
+ * Show an example on the console.
+ * @returns The example text.
+ */
+function createExample() {
+    // eslint-disable-next-line max-len
+    return chalk_1.default.magenta("\nExample: gh-tangle-release --github-token a4d936470cb3d66f5434f787c2500bde9764f --owner my-org --repository my-repo --release-tag v1.0.1 --seed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 }

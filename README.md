@@ -90,7 +90,21 @@ jobs:
 
 ## CLI
 
-The action is also available to use as a CLI, if you install the package `@iota/gh-tangle-release` you can run the following.
+The core features are also available to use as a CLI independently of GitHub Actions.
+
+If you install the npm package with:
+
+```shell
+npm install @iota/gh-tangle-release
+```
+
+You can then execute the following script.
+
+```shell
+gh-tangle-release
+```
+
+You will then be presented with the following options.
 
 ```shell
 GitHub Tangle Release v0.7.0 🚀
@@ -115,4 +129,7 @@ Options:
   --comment <string>          An optional comment to include in the Tangle transaction payload
   --explorer-url <string>     Url of the explorer to use for exploration link (default: "https://utils.iota.org/transaction/:hash")
   --help                      Display help
+
+  
+Example: gh-tangle-release --github-token a4d936470cb3d66f5434f787c2500bde9764f --owner my-org --repository my-repo --release-tag v1.0.1 --seed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   ```
