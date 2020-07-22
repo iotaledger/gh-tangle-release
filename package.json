@@ -1,6 +1,6 @@
 {
     "name": "@iota/gh-tangle-release",
-    "version": "0.6.5",
+    "version": "0.6.6",
     "description": "Create a release and adds metadata to the IOTA Tangle",
     "main": "dist/index.js",
     "module": "es/index.js",
@@ -15,7 +15,8 @@
         "test-lint": "eslint tests/**/*.ts",
         "test-run": "jest --coverage",
         "test": "npm-run-all test-lint test-run",
-        "dist": "npm-run-all build test"
+        "release-action": "ncc build src/action.ts -o action",
+        "dist": "npm-run-all build test release-action"
     },
     "repository": {
         "type": "git",
@@ -28,7 +29,6 @@
     "author": "Martyn Janes <martyn.janes@iota.org>",
     "license": "MIT",
     "dependencies": {
-        "-": "0.0.1",
         "@actions/core": "^1.2.4",
         "@actions/exec": "^1.0.4",
         "@actions/github": "^4.0.0",
@@ -45,6 +45,7 @@
         "@types/node-emoji": "^1.8.1",
         "@typescript-eslint/eslint-plugin": "^3.6.1",
         "@typescript-eslint/parser": "^3.6.1",
+        "@zeit/ncc": "^0.22.3",
         "eslint": "^7.5.0",
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-jsdoc": "^30.0.0",

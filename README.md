@@ -88,3 +88,31 @@ jobs:
 
 ```
 
+## CLI
+
+The action is also available to use as a CLI, if you install the package `@iota/gh-tangle-release` you can run the following.
+
+```shell
+GitHub Tangle Release v0.6.3 🚀
+
+Usage: gh-tangle-release [options]
+
+An application for creating a transaction on the IOTA Tangle from a GitHub release.
+
+Options:
+  -v, --version               output the current version
+  --github-token <string>     GitHub token for accessing your repository
+  --owner <string>            GitHub repository owner
+  --repository <string>       GitHub repository
+  --release-tag <string>      The release tag from the GitHub repository
+  --node <string>             Url of the node to use for attaching the transaction to the tangle (default:
+                              "https://nodes.iota.cafe:443")
+  --depth <number>            Depth to use for attaching the transaction to the tangle (default: "3")
+  --mwm <number>              Minimum weight magnitude to use for attaching the transaction to the tangle (default: "14")
+  --seed <string>             81 Tryte seed used to generate addresses
+  --address-index <number>    Index number used to generate addresses 0
+  --transaction-tag <string>  Tag to apply to the Tangle transaction
+  --comment <string>          An optional comment to include in the Tangle transaction payload
+  --explorer-url <string>     Url of the explorer to use for exploration link (default: "https://utils.iota.org/transaction/:hash")
+  --help                      Display help
+  ```
