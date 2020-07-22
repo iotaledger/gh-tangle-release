@@ -15,7 +15,7 @@ module.exports = {
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "project": "tsconfig.json",
+      "project": process.env.npm_lifecycle_event === "test-lint" ? "tsconfig.test.json" : "tsconfig.json",
       "tsconfigRootDir": __dirname,
       "sourceType": "module"
   },
