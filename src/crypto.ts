@@ -23,7 +23,7 @@ export async function downloadAndHash(url: string, githubToken: string): Promise
         }
 
         throw new Error(`No data in asset ${url}`);
-    } catch {
-        throw new Error(`Failed retrieving asset ${url}\n`);
+    } catch (err) {
+        throw new Error(`Failed retrieving asset ${url}\n${err.msg}`);
     }
 }

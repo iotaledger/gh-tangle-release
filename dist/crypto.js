@@ -37,8 +37,8 @@ function downloadAndHash(url, githubToken) {
             }
             throw new Error(`No data in asset ${url}`);
         }
-        catch (_a) {
-            throw new Error(`Failed retrieving asset ${url}\n`);
+        catch (err) {
+            throw new Error(`Failed retrieving asset ${url}\n${err.msg}`);
         }
     });
 }
