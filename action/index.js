@@ -2487,6 +2487,8 @@ function sanitizeInput(config) {
     let addressIndex;
     let depth;
     let mwm;
+    console.log(`addressindex is ${config.addressIndex}`);
+    console.log(`addressindex type is ${typeof config.addressIndex}`);
     if (typeof config.addressIndex === "string") {
         addressIndex = Number.parseInt(config.addressIndex, 10);
     }
@@ -2496,6 +2498,8 @@ function sanitizeInput(config) {
     else {
         addressIndex = config.addressIndex;
     }
+    console.log(`addressindex is ${addressIndex}`);
+    console.log(`addressindex2 type is ${typeof addressIndex}`);
     if (typeof config.depth === "string") {
         depth = Number.parseInt(config.depth, 10);
     }
@@ -31683,6 +31687,7 @@ if (require.main === require.cache[eval('__filename')]) {
         comment,
         explorerUrl: process.env.IOTA_TANGLE_EXPLORER
     };
+    console.log(`process.env.IOTA_ADDRESS_INDEX is ${typeof process.env.IOTA_ADDRESS_INDEX}`);
     const config = core_2.sanitizeInput(envConfig);
     core_2.tangleRelease(config, message => console.log(message))
         .then(transactionDetails => {

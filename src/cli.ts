@@ -55,7 +55,8 @@ if (process.argv.length === 2) {
             depth: opts.depth,
             mwm: opts.mwm,
             seed: opts.seed,
-            addressIndex: opts.addressIndex,
+            // eslint-disable-next-line unicorn/no-null
+            addressIndex: null as unknown as number, // opts.addressIndex,
             transactionTag: opts.transactionTag,
             comment: opts.comment,
             explorerUrl: opts.explorerUrl

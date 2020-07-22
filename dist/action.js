@@ -22,6 +22,7 @@ if (require.main === module) {
         comment,
         explorerUrl: process.env.IOTA_TANGLE_EXPLORER
     };
+    console.log(`process.env.IOTA_ADDRESS_INDEX is ${typeof process.env.IOTA_ADDRESS_INDEX}`);
     const config = core_2.sanitizeInput(envConfig);
     core_2.tangleRelease(config, message => console.log(message))
         .then(transactionDetails => {

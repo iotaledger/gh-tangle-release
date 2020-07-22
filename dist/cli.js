@@ -47,7 +47,8 @@ else {
             depth: opts.depth,
             mwm: opts.mwm,
             seed: opts.seed,
-            addressIndex: opts.addressIndex,
+            // eslint-disable-next-line unicorn/no-null
+            addressIndex: null,
             transactionTag: opts.transactionTag,
             comment: opts.comment,
             explorerUrl: opts.explorerUrl

@@ -51,6 +51,8 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
     let depth: number;
     let mwm: number;
 
+    console.log(`addressindex is ${config.addressIndex}`);
+    console.log(`addressindex type is ${typeof config.addressIndex}`);
     if (typeof config.addressIndex === "string") {
         addressIndex = Number.parseInt(config.addressIndex, 10);
     } else if (config.addressIndex === undefined || config.addressIndex === null) {
@@ -58,6 +60,8 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
     } else {
         addressIndex = config.addressIndex;
     }
+    console.log(`addressindex is ${addressIndex}`);
+    console.log(`addressindex2 type is ${typeof addressIndex}`);
     if (typeof config.depth === "string") {
         depth = Number.parseInt(config.depth, 10);
     } else if (config.depth === undefined || config.depth === null) {
