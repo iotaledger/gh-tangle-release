@@ -126,9 +126,9 @@ function tangleRelease(config, progress) {
             throw new Error(`Can not find the release https://github.com/${config.owner}/${config.repository}/releases/tag/${config.releaseTag}`);
         }
         progress("Downloading tarball");
-        const tarBallHash = yield crypto_1.downloadAndHash(release.data.tarball_url);
+        const tarBallHash = yield crypto_1.downloadAndHash(release.data.tarball_url, config.githubToken);
         progress("Downloading zipball");
-        const zipBallHash = yield crypto_1.downloadAndHash(release.data.zipball_url);
+        const zipBallHash = yield crypto_1.downloadAndHash(release.data.zipball_url, config.githubToken);
         progress("Constructing payload");
         const payload = {
             owner: config.owner || "",
@@ -147,7 +147,7 @@ function tangleRelease(config, progress) {
         if (release.data.assets && release.data.assets.length > 0) {
             payload.assets = [];
             for (let i = 0; i < release.data.assets.length; i++) {
-                const assetHash = yield crypto_1.downloadAndHash(release.data.assets[i].browser_download_url);
+                const assetHash = yield crypto_1.downloadAndHash(release.data.assets[i].browser_download_url, config.githubToken);
                 payload.assets.push({
                     name: release.data.assets[i].name,
                     size: release.data.assets[i].size,

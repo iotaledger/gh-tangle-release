@@ -4,11 +4,15 @@ import { createHash } from "crypto";
 /**
  * Download a file and return the sha256 hash of it.
  * @param url The url of the file to download.
+ * @param githubToken The access token.
  * @returns The sha256 hash of the file.
  */
-export async function downloadAndHash(url: string): Promise<string> {
+export async function downloadAndHash(url: string, githubToken: string): Promise<string> {
     try {
         const response = await axios.get(url, {
+            headers: {
+                Authorization: `token ${githubToken}`
+            },
             responseType: "arraybuffer"
         });
 

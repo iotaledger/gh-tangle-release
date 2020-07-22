@@ -134,10 +134,10 @@ export async function tangleRelease(config: IConfig, progress: (message: string)
     }
 
     progress("Downloading tarball");
-    const tarBallHash = await downloadAndHash(release.data.tarball_url);
+    const tarBallHash = await downloadAndHash(release.data.tarball_url, config.githubToken);
 
     progress("Downloading zipball");
-    const zipBallHash = await downloadAndHash(release.data.zipball_url);
+    const zipBallHash = await downloadAndHash(release.data.zipball_url, config.githubToken);
 
     progress("Constructing payload");
     const payload: IPayload = {
@@ -158,7 +158,7 @@ export async function tangleRelease(config: IConfig, progress: (message: string)
     if (release.data.assets && release.data.assets.length > 0) {
         payload.assets = [];
         for (let i = 0; i < release.data.assets.length; i++) {
-            const assetHash = await downloadAndHash(release.data.assets[i].browser_download_url);
+            const assetHash = await downloadAndHash(release.data.assets[i].browser_download_url, config.githubToken);
             payload.assets.push({
                 name: release.data.assets[i].name,
                 size: release.data.assets[i].size,

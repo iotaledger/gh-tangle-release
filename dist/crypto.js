@@ -18,12 +18,16 @@ const crypto_1 = require("crypto");
 /**
  * Download a file and return the sha256 hash of it.
  * @param url The url of the file to download.
+ * @param githubToken The access token.
  * @returns The sha256 hash of the file.
  */
-function downloadAndHash(url) {
+function downloadAndHash(url, githubToken) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const response = yield axios_1.default.get(url, {
+                headers: {
+                    Authorization: `token ${githubToken}`
+                },
                 responseType: "arraybuffer"
             });
             if (response.data) {
