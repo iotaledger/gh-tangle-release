@@ -4,7 +4,7 @@ import { Command } from "commander";
 import emoji from "node-emoji";
 import { sanitizeInput, tangleRelease } from "./core";
 
-const version = "0.6.3";
+const version = "0.7.0";
 console.log(chalk.green(`GitHub Tangle Release v${version} ${emoji.get("rocket")}\n`));
 
 const program = new Command();

@@ -8,7 +8,7 @@ const chalk_1 = __importDefault(require("chalk"));
 const commander_1 = require("commander");
 const node_emoji_1 = __importDefault(require("node-emoji"));
 const core_1 = require("./core");
-const version = "0.6.3";
+const version = "0.7.0";
 console.log(chalk_1.default.green(`GitHub Tangle Release v${version} ${node_emoji_1.default.get("rocket")}\n`));
 const program = new commander_1.Command();
 program

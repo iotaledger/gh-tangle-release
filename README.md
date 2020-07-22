@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Tangle Release
         id: tangle_release
-        uses: iotaledger/gh-tangle-release@v0.6.3
+        uses: iotaledger/gh-tangle-release@v0.7.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IOTA_SEED: ${{ secrets.IOTA_SEED }}
@@ -93,7 +93,7 @@ jobs:
 The action is also available to use as a CLI, if you install the package `@iota/gh-tangle-release` you can run the following.
 
 ```shell
-GitHub Tangle Release v0.6.3 🚀
+GitHub Tangle Release v0.7.0 🚀
 
 Usage: gh-tangle-release [options]
 

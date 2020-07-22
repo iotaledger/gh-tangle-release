@@ -53,21 +53,21 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
 
     if (typeof config.addressIndex === "string") {
         addressIndex = Number.parseInt(config.addressIndex, 10);
-    } else if (config.addressIndex === undefined) {
+    } else if (config.addressIndex === undefined || config.addressIndex === null) {
         addressIndex = 0;
     } else {
         addressIndex = config.addressIndex;
     }
     if (typeof config.depth === "string") {
         depth = Number.parseInt(config.depth, 10);
-    } else if (config.depth === undefined) {
+    } else if (config.depth === undefined || config.depth === null) {
         depth = 3;
     } else {
         depth = config.depth;
     }
     if (typeof config.mwm === "string") {
         mwm = Number.parseInt(config.mwm, 10);
-    } else if (config.mwm === undefined) {
+    } else if (config.mwm === undefined || config.mwm === null) {
         mwm = 14;
     } else {
         mwm = config.mwm;

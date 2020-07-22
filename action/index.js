@@ -2490,7 +2490,7 @@ function sanitizeInput(config) {
     if (typeof config.addressIndex === "string") {
         addressIndex = Number.parseInt(config.addressIndex, 10);
     }
-    else if (config.addressIndex === undefined) {
+    else if (config.addressIndex === undefined || config.addressIndex === null) {
         addressIndex = 0;
     }
     else {
@@ -2499,7 +2499,7 @@ function sanitizeInput(config) {
     if (typeof config.depth === "string") {
         depth = Number.parseInt(config.depth, 10);
     }
-    else if (config.depth === undefined) {
+    else if (config.depth === undefined || config.depth === null) {
         depth = 3;
     }
     else {
@@ -2508,7 +2508,7 @@ function sanitizeInput(config) {
     if (typeof config.mwm === "string") {
         mwm = Number.parseInt(config.mwm, 10);
     }
-    else if (config.mwm === undefined) {
+    else if (config.mwm === undefined || config.mwm === null) {
         mwm = 14;
     }
     else {
