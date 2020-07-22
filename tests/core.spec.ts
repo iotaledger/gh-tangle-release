@@ -8,14 +8,14 @@ describe("Tangle Release", () => {
 
     test("No GITHUB_TOKEN", async () => {
         const config: IPartialConfig = {};
-        expect(() => sanitizeInput(config)).toThrow("You must provide the GitHub token setting");
+        expect(() => sanitizeInput(config)).toThrow("You must provide the GitHub token option");
     });
 
     test("No owner", async () => {
         const config: IPartialConfig = {
             githubToken: "aaa"
         };
-        expect(() => sanitizeInput(config)).toThrow("You must provide the owner setting");
+        expect(() => sanitizeInput(config)).toThrow("You must provide the owner option");
     });
 
     test("No repository", async () => {
@@ -23,7 +23,7 @@ describe("Tangle Release", () => {
             githubToken: "aaa",
             owner: "abc"
         };
-        expect(() => sanitizeInput(config)).toThrow("You must provide the repository setting");
+        expect(() => sanitizeInput(config)).toThrow("You must provide the repository option");
     });
 
     test("No releaseTagName", async () => {
@@ -32,7 +32,7 @@ describe("Tangle Release", () => {
             owner: "abc",
             repository: "repo1/app1"
         };
-        expect(() => sanitizeInput(config)).toThrow("You must provide the releaseTagName setting");
+        expect(() => sanitizeInput(config)).toThrow("You must provide the release tag option");
     });
 
     test("No seed", async () => {
@@ -40,9 +40,9 @@ describe("Tangle Release", () => {
             githubToken: "aaa",
             owner: "abc",
             repository: "repo1/app1",
-            releaseTagName: "v1"
+            releaseTag: "v1"
         };
-        expect(() => sanitizeInput(config)).toThrow("You must provide the seed setting");
+        expect(() => sanitizeInput(config)).toThrow("You must provide the seed option");
     });
 
     test("Sanitized partial input", async () => {
@@ -50,21 +50,21 @@ describe("Tangle Release", () => {
             githubToken: "aaa",
             owner: "abc",
             repository: "repo1/app1",
-            releaseTagName: "v1",
+            releaseTag: "v1",
             seed: "A".repeat(81)
         };
         expect(sanitizeInput(config)).toEqual({
             githubToken: "aaa",
             owner: "abc",
             repository: "repo1/app1",
-            releaseTagName: "v1",
+            releaseTag: "v1",
             addressIndex: 0,
             node: "https://nodes.iota.cafe:443",
             depth: 3,
             mwm: 14,
-            tangleExplorer: "https://utils.iota.org/transaction/:hash",
+            explorerUrl: "https://utils.iota.org/transaction/:hash",
             seed: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            tag: "GITHUB9RELEASE",
+            transactionTag: "GITHUB9RELEASE",
             comment: undefined
         });
     });
@@ -74,28 +74,28 @@ describe("Tangle Release", () => {
             githubToken: "aaa",
             owner: "abc",
             repository: "repo1/app1",
-            releaseTagName: "v1",
+            releaseTag: "v1",
             seed: "A".repeat(81),
             node: "https://foo",
             depth: "1",
             mwm: "2",
             addressIndex: 10,
-            tangleExplorer: "https://bar",
-            tag: "TAGTAGTAG",
+            explorerUrl: "https://bar",
+            transactionTag: "TAGTAGTAG",
             comment: "Mmmmm"
         };
         expect(sanitizeInput(config)).toEqual({
             githubToken: "aaa",
             owner: "abc",
             repository: "repo1/app1",
-            releaseTagName: "v1",
+            releaseTag: "v1",
             addressIndex: 10,
             node: "https://foo",
             depth: 1,
             mwm: 2,
-            tangleExplorer: "https://bar",
+            explorerUrl: "https://bar",
             seed: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            tag: "TAGTAGTAG",
+            transactionTag: "TAGTAGTAG",
             comment: "Mmmmm"
         });
     });

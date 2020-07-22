@@ -1,6 +1,6 @@
 {
-    "name": "gh-tangle-release",
-    "version": "0.6.3",
+    "name": "@iota/gh-tangle-release",
+    "version": "0.6.4",
     "description": "Create a release and adds metadata to the IOTA Tangle",
     "main": "dist/index.js",
     "module": "es/index.js",
@@ -14,7 +14,8 @@
         "build": "npm-run-all clean lint compile typings",
         "test-lint": "eslint tests/**/*.ts",
         "test-run": "jest --coverage",
-        "test": "npm-run-all test-lint test-run"
+        "test": "npm-run-all test-lint test-run",
+        "dist": "npm-run-all build test"
     },
     "repository": {
         "type": "git",

@@ -8,6 +8,7 @@
         "esModuleInterop": true
     },
     "include": [
-        "src"
+        "src",
+        "tests"
     ]
 }
