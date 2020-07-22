@@ -34,7 +34,7 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
         throw new Error(`The seed option must be 81 trytes [A-Z9], it is ${config.seed.length}`);
     }
 
-    config.transactionTag = config.transactionTag ?? "GITHUB9RELEASE";
+    config.transactionTag = config.transactionTag || "GITHUB9RELEASE";
 
     if (!/[9A-Z]/.test(config.transactionTag)) {
         throw new Error("The transaction tag option must be 27 trytes [A-Z9] or less");
@@ -44,8 +44,8 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
             config.transactionTag.length}`);
     }
 
-    config.explorerUrl = config.explorerUrl ?? "https://utils.iota.org/transaction/:hash";
-    config.node = config.node ?? "https://nodes.iota.cafe:443";
+    config.explorerUrl = config.explorerUrl || "https://utils.iota.org/transaction/:hash";
+    config.node = config.node || "https://nodes.iota.cafe:443";
 
     let addressIndex: number;
     let depth: number;
@@ -139,8 +139,8 @@ export async function tangleRelease(config: IConfig, progress: (message: string)
 
     progress("Constructing payload");
     const payload: IPayload = {
-        owner: config.owner ?? "",
-        repo: config.repository ?? "",
+        owner: config.owner || "",
+        repo: config.repository || "",
         tag_name: release.data.tag_name,
         name: release.data.name,
         comment: config.comment,

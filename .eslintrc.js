@@ -261,7 +261,7 @@ module.exports = {
           "error"
       ],
       "@typescript-eslint/prefer-nullish-coalescing": [
-          "error"
+          "off"
       ],
       "@typescript-eslint/prefer-optional-chain": [
           "error"

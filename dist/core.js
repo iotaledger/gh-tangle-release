@@ -20,7 +20,6 @@ const iota_1 = require("./iota");
  * @returns The config as non partial.
  */
 function sanitizeInput(config) {
-    var _a, _b, _c;
     if (!config.githubToken) {
         throw new Error("You must provide the GitHub token option");
     }
@@ -42,15 +41,15 @@ function sanitizeInput(config) {
     if (config.seed.length !== 81) {
         throw new Error(`The seed option must be 81 trytes [A-Z9], it is ${config.seed.length}`);
     }
-    config.transactionTag = (_a = config.transactionTag) !== null && _a !== void 0 ? _a : "GITHUB9RELEASE";
+    config.transactionTag = config.transactionTag || "GITHUB9RELEASE";
     if (!/[9A-Z]/.test(config.transactionTag)) {
         throw new Error("The transaction tag option must be 27 trytes [A-Z9] or less");
     }
     if (config.transactionTag.length >= 27) {
         throw new Error(`The transaction tag option must be 27 trytes [A-Z9] or less, it is ${config.transactionTag.length}`);
     }
-    config.explorerUrl = (_b = config.explorerUrl) !== null && _b !== void 0 ? _b : "https://utils.iota.org/transaction/:hash";
-    config.node = (_c = config.node) !== null && _c !== void 0 ? _c : "https://nodes.iota.cafe:443";
+    config.explorerUrl = config.explorerUrl || "https://utils.iota.org/transaction/:hash";
+    config.node = config.node || "https://nodes.iota.cafe:443";
     let addressIndex;
     let depth;
     let mwm;
@@ -104,7 +103,6 @@ exports.sanitizeInput = sanitizeInput;
  * @returns The hash of the transaction and an explorer url.
  */
 function tangleRelease(config, progress) {
-    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         progress("Connecting to GitHub");
         let release;
@@ -133,8 +131,8 @@ function tangleRelease(config, progress) {
         const zipBallHash = yield crypto_1.downloadAndHash(release.data.zipball_url);
         progress("Constructing payload");
         const payload = {
-            owner: (_a = config.owner) !== null && _a !== void 0 ? _a : "",
-            repo: (_b = config.repository) !== null && _b !== void 0 ? _b : "",
+            owner: config.owner || "",
+            repo: config.repository || "",
             tag_name: release.data.tag_name,
             name: release.data.name,
             comment: config.comment,
