@@ -17,10 +17,10 @@ program
     .name(chalk.yellowBright("gh-tangle-release"))
     .version(version, "-v, --version", chalk.yellowBright("output the current version"))
     .description(chalk.cyan("An application for creating a transaction on the IOTA Tangle from a GitHub release."))
-    .option("--github-token <string>", chalk.yellowBright("GitHub token for accessing your repository"))
-    .option("--owner <string>", chalk.yellowBright("GitHub repository owner"))
-    .option("--repository <string>", chalk.yellowBright("GitHub repository"))
-    .option("--release-tag <string>", chalk.yellowBright("The release tag from the GitHub repository"))
+    .option("--github-token <string>", chalk.yellowBright("GitHub token for accessing your repository (required)"))
+    .option("--owner <string>", chalk.yellowBright("GitHub repository owner (required)"))
+    .option("--repository <string>", chalk.yellowBright("GitHub repository (required)"))
+    .option("--release-tag <string>", chalk.yellowBright("The release tag from the GitHub repository (required)"))
     .option("--node <string>", chalk.yellowBright("Url of the node to use for attaching the transaction to the tangle"),
         "https://nodes.iota.cafe:443")
     .option("--depth <number>", chalk.yellowBright("Depth to use for attaching the transaction to the tangle"),
@@ -28,7 +28,7 @@ program
     .option("--mwm <number>",
         chalk.yellowBright("Minimum weight magnitude to use for attaching the transaction to the tangle"),
         "14")
-    .option("--seed <string>", chalk.yellowBright("81 Tryte seed used to generate addresses"))
+    .option("--seed <string>", chalk.yellowBright("81 Tryte seed used to generate addresses (required)"))
     .option("--address-index <number>", chalk.yellowBright("Index number used to generate addresses"), "0")
     .option("--transaction-tag <string>", chalk.yellowBright("Tag to apply to the Tangle transaction"), "GITHUB9RELEASE")
     .option("--comment <string>",

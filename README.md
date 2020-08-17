@@ -115,10 +115,10 @@ An application for creating a transaction on the IOTA Tangle from a GitHub relea
 
 Options:
   -v, --version               output the current version
-  --github-token <string>     GitHub token for accessing your repository
-  --owner <string>            GitHub repository owner
-  --repository <string>       GitHub repository
-  --release-tag <string>      The release tag from the GitHub repository
+  --github-token <string>     GitHub token for accessing your repository (required)
+  --owner <string>            GitHub repository owner (required)
+  --repository <string>       GitHub repository (required)
+  --release-tag <string>      The release tag from the GitHub repository (required)
   --node <string>             Url of the node to use for attaching the transaction to the tangle (default:
                               "https://nodes.iota.cafe:443")
   --depth <number>            Depth to use for attaching the transaction to the tangle (default: "3")
