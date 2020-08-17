@@ -29,8 +29,8 @@ program
         chalk.yellowBright("Minimum weight magnitude to use for attaching the transaction to the tangle"),
         "14")
     .option("--seed <string>", chalk.yellowBright("81 Tryte seed used to generate addresses (required)"))
-    .option("--address-index <number>", chalk.yellowBright("Index number used to generate addresses", "0"))
-    .option("--transaction-tag <string>", chalk.yellowBright("Tag to apply to the Tangle transaction"))
+    .option("--address-index <number>", chalk.yellowBright("Index number used to generate addresses"), "0")
+    .option("--transaction-tag <string>", chalk.yellowBright("Tag to apply to the Tangle transaction"), "GITHUB9RELEASE")
     .option("--comment <string>",
         chalk.yellowBright("An optional comment to include in the Tangle transaction payload"))
     .option("--explorer-url <string>", chalk.yellowBright("Url of the explorer to use for exploration link"),

@@ -39,7 +39,7 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
     if (!/[9A-Z]/.test(config.transactionTag)) {
         throw new Error("The transaction tag option must be 27 trytes [A-Z9] or less");
     }
-    if (config.transactionTag.length >= 27) {
+    if (config.transactionTag.length > 27) {
         throw new Error(`The transaction tag option must be 27 trytes [A-Z9] or less, it is ${
             config.transactionTag.length}`);
     }

@@ -124,12 +124,12 @@ Options:
   --depth <number>            Depth to use for attaching the transaction to the tangle (default: "3")
   --mwm <number>              Minimum weight magnitude to use for attaching the transaction to the tangle (default: "14")
   --seed <string>             81 Tryte seed used to generate addresses
-  --address-index <number>    Index number used to generate addresses 0
-  --transaction-tag <string>  Tag to apply to the Tangle transaction
+  --address-index <number>    Index number used to generate addresses (default: "0")
+  --transaction-tag <string>  Tag to apply to the Tangle transaction (default: "GITHUB9RELEASE")
   --comment <string>          An optional comment to include in the Tangle transaction payload
   --explorer-url <string>     Url of the explorer to use for exploration link (default: "https://utils.iota.org/transaction/:hash")
   --help                      Display help
 
-  
+
 Example: gh-tangle-release --github-token a4d936470cb3d66f5434f787c2500bde9764f --owner my-org --repository my-repo --release-tag v1.0.1 --seed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   ```
