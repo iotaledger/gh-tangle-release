@@ -124,7 +124,7 @@ Options:
   --depth <number>            Depth to use for attaching the transaction to the tangle (default: "3")
   --mwm <number>              Minimum weight magnitude to use for attaching the transaction to the tangle (default: "14")
   --seed <string>             81 Tryte seed used to generate addresses
-  --address-index <number>    Index number used to generate addresses 0
+  --address-index <number>    Index number used to generate addresses (default: "0")
   --transaction-tag <string>  Tag to apply to the Tangle transaction (default: "GITHUB9RELEASE")
   --comment <string>          An optional comment to include in the Tangle transaction payload
   --explorer-url <string>     Url of the explorer to use for exploration link (default: "https://utils.iota.org/transaction/:hash")
