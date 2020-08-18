@@ -2,10 +2,6 @@ import { sanitizeInput } from "../src/core";
 import { IPartialConfig } from "../src/models/IPartialConfig";
 
 describe("Tangle Release", () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
     test("No GITHUB_TOKEN", async () => {
         const config: IPartialConfig = {};
         expect(() => sanitizeInput(config)).toThrow("You must provide the GitHub token option");
@@ -45,6 +41,54 @@ describe("Tangle Release", () => {
         expect(() => sanitizeInput(config)).toThrow("You must provide the seed option");
     });
 
+    test("Seed non trytes characters", async () => {
+        const config: IPartialConfig = {
+            githubToken: "aaa",
+            owner: "abc",
+            repository: "repo1/app1",
+            releaseTag: "v1",
+            seed: "aaa"
+        };
+        expect(() => sanitizeInput(config)).toThrow("The seed option must be 81 trytes [A-Z9]");
+    });
+
+    test("Seed wrong length", async () => {
+        const config: IPartialConfig = {
+            githubToken: "aaa",
+            owner: "abc",
+            repository: "repo1/app1",
+            releaseTag: "v1",
+            seed: "AAA"
+        };
+        expect(() => sanitizeInput(config)).toThrow("The seed option must be 81 trytes [A-Z9], it is 3");
+    });
+
+    test("Transaction tag non trytes characters", async () => {
+        const config: IPartialConfig = {
+            githubToken: "aaa",
+            owner: "abc",
+            repository: "repo1/app1",
+            releaseTag: "v1",
+            seed: "A".repeat(81),
+            transactionTag: "a"
+        };
+        expect(() =>
+            sanitizeInput(config)).toThrow("The transaction tag option must be 27 trytes [A-Z9] or less");
+    });
+
+    test("Transaction tag length too long", async () => {
+        const config: IPartialConfig = {
+            githubToken: "aaa",
+            owner: "abc",
+            repository: "repo1/app1",
+            releaseTag: "v1",
+            seed: "A".repeat(81),
+            transactionTag: "A".repeat(28)
+        };
+        expect(() =>
+            sanitizeInput(config)).toThrow("The transaction tag option must be 27 trytes [A-Z9] or less, it is 28");
+    });
+
     test("Sanitized partial input", async () => {
         const config: IPartialConfig = {
             githubToken: "aaa",
@@ -81,7 +125,7 @@ describe("Tangle Release", () => {
             mwm: "2",
             addressIndex: 10,
             explorerUrl: "https://bar",
-            transactionTag: "TAGTAGTAG",
+            transactionTag: "T".repeat(27),
             comment: "Mmmmm"
         };
         expect(sanitizeInput(config)).toEqual({
@@ -95,7 +139,7 @@ describe("Tangle Release", () => {
             mwm: 2,
             explorerUrl: "https://bar",
             seed: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            transactionTag: "TAGTAGTAG",
+            transactionTag: "T".repeat(27),
             comment: "Mmmmm"
         });
     });

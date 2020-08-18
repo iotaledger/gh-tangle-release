@@ -12,35 +12,34 @@ import { IPayload } from "./models/IPayload";
  * @returns The config as non partial.
  */
 export function sanitizeInput(config: IPartialConfig): IConfig {
+    const errors: string[] = [];
     if (!config.githubToken) {
-        throw new Error("You must provide the GitHub token option");
+        errors.push("You must provide the GitHub token option");
     }
     if (!config.owner) {
-        throw new Error("You must provide the owner option");
+        errors.push("You must provide the owner option");
     }
     if (!config.repository) {
-        throw new Error("You must provide the repository option");
+        errors.push("You must provide the repository option");
     }
     if (!config.releaseTag) {
-        throw new Error("You must provide the release tag option");
+        errors.push("You must provide the release tag option");
     }
     if (!config.seed) {
-        throw new Error("You must provide the seed option");
-    }
-    if (!/[9A-Z]/.test(config.seed)) {
-        throw new Error("The seed option must be 81 trytes [A-Z9]");
-    }
-    if (config.seed.length !== 81) {
-        throw new Error(`The seed option must be 81 trytes [A-Z9], it is ${config.seed.length}`);
+        errors.push("You must provide the seed option");
+    } else if (!/[9A-Z]/.test(config.seed)) {
+        errors.push("The seed option must be 81 trytes [A-Z9]");
+    } else if (config.seed.length !== 81) {
+        errors.push(`The seed option must be 81 trytes [A-Z9], it is ${config.seed.length}`);
     }
 
     config.transactionTag = config.transactionTag || "GITHUB9RELEASE";
 
     if (!/[9A-Z]/.test(config.transactionTag)) {
-        throw new Error("The transaction tag option must be 27 trytes [A-Z9] or less");
+        errors.push("The transaction tag option must be 27 trytes [A-Z9] or less");
     }
     if (config.transactionTag.length > 27) {
-        throw new Error(`The transaction tag option must be 27 trytes [A-Z9] or less, it is ${
+        errors.push(`The transaction tag option must be 27 trytes [A-Z9] or less, it is ${
             config.transactionTag.length}`);
     }
 
@@ -75,15 +74,19 @@ export function sanitizeInput(config: IPartialConfig): IConfig {
         mwm = config.mwm;
     }
 
+    if (errors.length > 0) {
+        throw new Error(errors.join("\n"));
+    }
+
     return {
-        githubToken: config.githubToken,
-        owner: config.owner,
-        repository: config.repository,
-        releaseTag: config.releaseTag,
+        githubToken: config.githubToken || "",
+        owner: config.owner || "",
+        repository: config.repository || "",
+        releaseTag: config.releaseTag || "",
         node: config.node,
         depth,
         mwm,
-        seed: config.seed,
+        seed: config.seed || "",
         addressIndex,
         transactionTag: config.transactionTag,
         comment: config.comment,
