@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Tangle Release
         id: tangle_release
-        uses: iotaledger/gh-tangle-release@v0.7.0
+        uses: iotaledger/gh-tangle-release@v0.7.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IOTA_SEED: ${{ secrets.IOTA_SEED }}
@@ -107,7 +107,7 @@ gh-tangle-release
 You will then be presented with the following options.
 
 ```shell
-GitHub Tangle Release v0.7.0 🚀
+GitHub Tangle Release v0.7.1 🚀
 
 Usage: gh-tangle-release [options]
 
@@ -123,12 +123,21 @@ Options:
                               "https://nodes.iota.cafe:443")
   --depth <number>            Depth to use for attaching the transaction to the tangle (default: "3")
   --mwm <number>              Minimum weight magnitude to use for attaching the transaction to the tangle (default: "14")
-  --seed <string>             81 Tryte seed used to generate addresses
+  --seed <string>             81 Tryte seed used to generate addresses (required)
   --address-index <number>    Index number used to generate addresses (default: "0")
   --transaction-tag <string>  Tag to apply to the Tangle transaction (default: "GITHUB9RELEASE")
   --comment <string>          An optional comment to include in the Tangle transaction payload
   --explorer-url <string>     Url of the explorer to use for exploration link (default: "https://utils.iota.org/transaction/:hash")
+  --no-color                  Disable colored output
   --help                      Display help
+
+You can also supply some of the options through environment variables:
+   --github-token: GITHUB_TOKEN
+   --owner: GITHUB_REPOSITORY[0]
+   --repository: GITHUB_REPOSITORY[1]
+        where GITHUB_REPOSITORY is formatted owner/repository
+   --release-tag: GITHUB_REF
+   --seed: GTR_SEED
 
 
 Example: gh-tangle-release --github-token a4d936470cb3d66f5434f787c2500bde9764f --owner my-org --repository my-repo --release-tag v1.0.1 --seed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

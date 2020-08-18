@@ -1199,10 +1199,10 @@ module.exports = {
           "error"
       ],
       "unicorn/no-null": [
-          "error"
+          "off"
       ],
       "unicorn/no-process-exit": [
-          "error"
+          "off"
       ],
       "unicorn/no-reduce": [
           "off"
