@@ -16,7 +16,7 @@ export async function cliCore(
     const program = new Command();
 
     try {
-        const version = "0.7.1";
+        const version = "0.7.2";
 
         program
             .storeOptionsAsProperties(false)
@@ -53,8 +53,6 @@ export async function cliCore(
 
         program.parse(argv);
         const opts = program.opts();
-
-        console.log(opts);
 
         display(chalk.green(`GitHub Tangle Release v${version} ${
             opts.color === false ? "" : emoji.get("rocket")}\n`));

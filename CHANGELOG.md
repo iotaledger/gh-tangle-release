@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.2
+
+Removed superfluous console.log
+
 ## v0.7.1
 
 Show additional defaults in CLI help

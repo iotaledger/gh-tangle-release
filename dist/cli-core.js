@@ -27,7 +27,7 @@ function cliCore(argv, env, display) {
     return __awaiter(this, void 0, void 0, function* () {
         const program = new commander_1.Command();
         try {
-            const version = "0.7.1";
+            const version = "0.7.2";
             program
                 .storeOptionsAsProperties(false)
                 .passCommandToAction(false)
@@ -50,7 +50,6 @@ function cliCore(argv, env, display) {
                 .helpOption("--help", chalk_1.default.yellowBright("Display help"));
             program.parse(argv);
             const opts = program.opts();
-            console.log(opts);
             display(chalk_1.default.green(`GitHub Tangle Release v${version} ${opts.color === false ? "" : node_emoji_1.default.get("rocket")}\n`));
             const envRepo = env.GITHUB_REPOSITORY ? env.GITHUB_REPOSITORY.split("/") : [];
             if (envRepo.length === 2) {
