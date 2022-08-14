@@ -29,7 +29,7 @@
     "author": "Martyn Janes <martyn.janes@iota.org>",
     "license": "MIT",
     "dependencies": {
-        "@actions/core": "^1.2.6",
+        "@actions/core": "^1.9.1",
         "@actions/exec": "^1.0.4",
         "@actions/github": "^4.0.0",
         "@iota/converter": "^1.0.0-beta.23",
