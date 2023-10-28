@@ -34,7 +34,7 @@
         "@actions/github": "^4.0.0",
         "@iota/converter": "^1.0.0-beta.23",
         "@iota/core": "^1.0.0-beta.24",
-        "axios": "^0.21.1",
+        "axios": "^1.6.0",
         "chalk": "^4.1.0",
         "commander": "^6.1.0",
         "node-emoji": "^1.10.0"
